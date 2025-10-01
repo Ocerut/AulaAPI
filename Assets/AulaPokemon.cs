@@ -4,12 +4,18 @@ using System.Threading.Tasks;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using TMPro;
 
 public class aulaPokemonAPI : MonoBehaviour
 {
     private readonly HttpClient httpClient = new HttpClient();
     private const string baseUrl = "https://pokeapi.co/api/v2/pokemon/";
     public Image dittoImg;
+    public Text textNome;
+    public Text textTipo;
+    public Text textID;
+    public Text textHeight;
+    public Text textWeight;
 
 
     async void Start()
@@ -18,15 +24,15 @@ public class aulaPokemonAPI : MonoBehaviour
 
         if (ditto != null)
         {
-            Debug.Log($"Nome: {ditto.name}");
-            Debug.Log($"ID: {ditto.id}");
-            Debug.Log($"Altura: {ditto.height}");
-            Debug.Log($"Peso: {ditto.weight}");
+            textNome.text = $"Nome: {ditto.name}";
+            textID.text = $"ID: {ditto.id}";
+            textHeight.text = $"Altura: {ditto.height}";
+            textWeight.text = $"Peso: {ditto.weight}";
             Debug.Log($"Experiência Base: {ditto.base_experience}");
 
             if (ditto.types != null && ditto.types.Length > 0)
             {
-                Debug.Log($"Tipo Principal: {ditto.types[0].type.name}");
+                textTipo.text = $"Tipo Principal: {ditto.types[0].type.name}";
             }
 
             // Carrega a imagem do Pikachu na variável pikachuImg
