@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public class TesteAPI : MonoBehaviour
+public class API : MonoBehaviour
 {
     private GameApiService apiService;
     
@@ -13,29 +13,23 @@ public class TesteAPI : MonoBehaviour
         Debug.Log("=== TESTE DA API ===");
 
         //Adicionar Jogadores
-        Jogador novoJogador1 = new Jogador();
-        novoJogador1.Nome = "Heroi";
-        novoJogador1.Login = "heroi";
-        novoJogador1.Senha = "123";
-        novoJogador1.Fase = "1";
-        novoJogador1.Vida = "100";
-        novoJogador1.PosicaoX = 0;
-        novoJogador1.PosicaoY = 0;
-        novoJogador1.PosicaoZ = 0;
+        Player novoJogador1 = new Player();
+        novoJogador1.Vida = 100;
+        novoJogador1.QtdeItens = 0;
+        novoJogador1.PosX = 0;
+        novoJogador1.PosY = 0;
+        novoJogador1.PosZ = 0;
         //adicionar jogador na API
-        Jogador criadoJogador1 = await apiService.CriarJogador(novoJogador1);
-        Jogador novoJogador2 = new Jogador();
-        novoJogador2.Nome = "Vilao";
-        novoJogador2.Login = "vilao";
-        novoJogador2.Senha = "123";
-        novoJogador2.Fase = "1";
-        novoJogador2.Vida = "100";
-        novoJogador2.PosicaoX = 10;
-        novoJogador2.PosicaoY = 0;
-        novoJogador2.PosicaoZ = 0;
+        Player criadoJogador1 = await apiService.CriarJogador(novoJogador1);
+        Player novoJogador2 = new Player();
+        novoJogador2.Vida = 95;
+        novoJogador2.QtdeItens = 0;
+        novoJogador2.PosX = 10;
+        novoJogador2.PosY = 0;
+        novoJogador2.PosZ = 0;
         //adicionar jogador na API
-        Jogador criadoJogador2 = await apiService.CriarJogador(novoJogador2);
-        Debug.Log($"Jogadores criados: {criadoJogador1.Nome} (ID: {criadoJogador1.id}), {criadoJogador2.Nome} (ID: {criadoJogador2.id})");
+        Player criadoJogador2 = await apiService.CriarJogador(novoJogador2);
+        Debug.Log($"Jogadores criados: (ID: {criadoJogador1.id}), (ID: {criadoJogador2.id})");
         //adicionar itens para o jogador 1
         ItemJogador novoItem1 = new ItemJogador();
         novoItem1.Nome = "Espada";
@@ -50,8 +44,8 @@ public class TesteAPI : MonoBehaviour
         novoItem2.JogadorId = criadoJogador1.id;
         ItemJogador criadoItem2 = await apiService.AdicionarItem(criadoJogador1.id, novoItem2);
         //alterar vida do jogador 1
-        criadoJogador1.Vida = "80";
-        Jogador atualizadoJogador1 = await apiService.AtualizarJogador(criadoJogador1.id, criadoJogador1);
+        criadoJogador1.Vida = 80;
+        Player atualizadoJogador1 = await apiService.AtualizarJogador(criadoJogador1.id, criadoJogador1);
 
         //excluir item do jogador 2
         //await apiService.RemoverItem(criadoJogador1.id, criadoItem2.id);
@@ -65,11 +59,11 @@ public class TesteAPI : MonoBehaviour
     
     async Task MostrarTodosJogadores()
     {
-        Jogador[] jogadores = await apiService.GetTodosJogadores();
+        Player[] jogadores = await apiService.GetTodosJogadores();
         Debug.Log($"Total de jogadores: {jogadores.Length}");
         foreach (var jogador in jogadores)
         {
-            Debug.Log($"Jogador: {jogador.Nome} (ID: {jogador.id}, Vida: {jogador.Vida})");
+            Debug.Log($"Jogador: (ID: {jogador.id}, Vida: {jogador.Vida})");
             ItemJogador[] itens = await apiService.GetItensJogador(jogador.id);
             Debug.Log($"  Itens ({itens.Length}):");
             foreach (var item in itens)

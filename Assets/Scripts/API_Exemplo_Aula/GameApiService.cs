@@ -8,8 +8,8 @@ using UnityEngine;
 public class GameApiService
 {
     private readonly HttpClient httpClient;
-    private const string BASE_URL = "https://66242a4004457d4aaf9bc3e9.mockapi.io";
-    
+    private const string BASE_URL = "https://68f978a7ef8b2e621e7c295e.mockapi.io";
+
     public GameApiService()
     {
         httpClient = new HttpClient();
@@ -20,11 +20,11 @@ public class GameApiService
     /// <summary>
     /// Busca todos os jogadores
     /// </summary>
-    public async Task<Jogador[]> GetTodosJogadores()
+    public async Task<Player[]> GetTodosJogadores()
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador";
+            string url = $"{BASE_URL}/Player";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -42,18 +42,18 @@ public class GameApiService
         catch (Exception ex)
         {
             Debug.LogError($"Erro ao buscar jogadores: {ex.Message}");
-            return new Jogador[0];
+            return new Player[0];
         }
     }
     
     /// <summary>
     /// Busca um jogador específico
     /// </summary>
-    public async Task<Jogador> GetJogador(string id)
+    public async Task<Player> GetJogador(string id)
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{id}";
+            string url = $"{BASE_URL}/Player/{id}";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -62,7 +62,7 @@ public class GameApiService
             string json = await response.Content.ReadAsStringAsync();
             Debug.Log($"Jogador recebido: {json}");
             
-            Jogador jogador = JsonUtility.FromJson<Jogador>(json);
+            Player jogador = JsonUtility.FromJson<Player>(json);
             return jogador;
         }
         catch (Exception ex)
@@ -75,11 +75,11 @@ public class GameApiService
     /// <summary>
     /// Atualiza dados do jogador
     /// </summary>
-    public async Task<Jogador> AtualizarJogador(string id, Jogador jogador)
+    public async Task<Player> AtualizarJogador(string id, Player jogador)
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{id}";
+            string url = $"{BASE_URL}/Player/{id}";
             Debug.Log($"PUT: {url}");
             
             string json = JsonUtility.ToJson(jogador);
@@ -93,7 +93,7 @@ public class GameApiService
             string responseJson = await response.Content.ReadAsStringAsync();
             Debug.Log($"Jogador atualizado: {responseJson}");
             
-            return JsonUtility.FromJson<Jogador>(responseJson);
+            return JsonUtility.FromJson<Player>(responseJson);
         }
         catch (Exception ex)
         {
@@ -105,11 +105,11 @@ public class GameApiService
     /// <summary>
     /// Cria novo jogador
     /// </summary>
-    public async Task<Jogador> CriarJogador(Jogador jogador)
+    public async Task<Player> CriarJogador(Player jogador)
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador";
+            string url = $"{BASE_URL}/Player";
             Debug.Log($"POST: {url}");
             
             string json = JsonUtility.ToJson(jogador);
@@ -123,7 +123,7 @@ public class GameApiService
             string responseJson = await response.Content.ReadAsStringAsync();
             Debug.Log($"Jogador criado: {responseJson}");
             
-            return JsonUtility.FromJson<Jogador>(responseJson);
+            return JsonUtility.FromJson<Player>(responseJson);
         }
         catch (Exception ex)
         {
@@ -143,7 +143,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{jogadorId}/Itens";
+            string url = $"{BASE_URL}/Player/{jogadorId}/Itens";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -172,7 +172,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{jogadorId}/Itens";
+            string url = $"{BASE_URL}/Player/{jogadorId}/Itens";
             Debug.Log($"POST: {url}");
             
             // Garante que o JogadorId está correto
@@ -205,7 +205,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{jogadorId}/Itens/{itemId}";
+            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -230,7 +230,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{jogadorId}/Itens/{itemId}";
+            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
             Debug.Log($"PUT: {url}");
             
             string json = JsonUtility.ToJson(item);
@@ -260,7 +260,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Jogador/{jogadorId}/Itens/{itemId}";
+            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
             Debug.Log($"DELETE: {url}");
             
             HttpResponseMessage response = await httpClient.DeleteAsync(url);
@@ -288,7 +288,7 @@ public class GameApiService
 [System.Serializable]
 public class JogadorArray
 {
-    public Jogador[] jogadores;
+    public Player[] jogadores;
 }
 
 [System.Serializable]
