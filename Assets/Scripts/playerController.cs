@@ -1,0 +1,45 @@
+using System;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class playerController : MonoBehaviour
+{
+    public GameApiService api = new GameApiService();
+    public int vida = 100;
+    public int qtdeItens = 0;
+    private Player jogador1 = new Player();
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+
+        jogador1.id = "1";
+        jogador1.Vida = vida;
+        jogador1.QtdeItens = qtdeItens;
+        jogador1.PosX = (int)transform.position.x;
+        jogador1.PosY = (int)transform.position.y;
+        jogador1.PosZ = (int)transform.position.z;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Inimigo")
+        {
+            vida = vida - 10;
+            api.AtualizarJogador("1", jogador1);
+        }
+        else if (collision.gameObject.tag == "Comida")
+        {
+            qtdeItens++;
+            api.AtualizarJogador("1", jogador1);
+        }
+
+    }
+}

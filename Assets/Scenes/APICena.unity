@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida: 100
+  qtdeItens: 0
 --- !u!1001 &210665015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,50 +493,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127d247deca4cc449a9a3752d97fa1fb, type: 3}
---- !u!1 &849830388
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 849830390}
-  - component: {fileID: 849830391}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &849830390
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849830388}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 660.1917, y: 261.85117, z: -2.8542807}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &849830391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849830388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf4ffbc8058f7b4d9d6dab578aa8f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1112866659
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarOfHurt
       objectReference: {fileID: 0}
+    - target: {fileID: 4580771011576202700, guid: 127d247deca4cc449a9a3752d97fa1fb, type: 3}
+      propertyPath: m_TagString
+      value: Inimigo
+      objectReference: {fileID: 0}
     - target: {fileID: 7491983887375792258, guid: 127d247deca4cc449a9a3752d97fa1fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -1062,7 +1023,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1112866662}
   - {fileID: 1729162804}
-  - {fileID: 849830390}
   - {fileID: 1658912527}
   - {fileID: 47023854}
   - {fileID: 695691109}
