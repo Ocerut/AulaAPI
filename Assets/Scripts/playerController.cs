@@ -1,24 +1,37 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class playerController : MonoBehaviour
 {
     public GameApiService api = new GameApiService();
     public int vida = 100;
     public int qtdeItens = 0;
-    private Player jogador1 = new Player();
-    
+    public Player jogador1 = new Player();
+    float horizontalInput;
+    float verticalInput;
+    public float speed = 10;
+    Vector3 direction;
+    Rigidbody rb;
+    public GameObject uiManagerObj;
+    public UIManager uiManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        uiManager = uiManagerObj.GetComponent<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        direction = new Vector3(horizontalInput, 0, verticalInput);
+        transform.Translate(direction * Time.deltaTime * speed);
 
         jogador1.id = "1";
         jogador1.Vida = vida;
@@ -34,12 +47,22 @@ public class playerController : MonoBehaviour
         {
             vida = vida - 10;
             api.AtualizarJogador("1", jogador1);
+            uiManager.saveUI.SetActive(true);
+            
         }
         else if (collision.gameObject.tag == "Comida")
         {
             qtdeItens++;
+            Destroy(collision.gameObject);
             api.AtualizarJogador("1", jogador1);
+            uiManager.saveUI.SetActive(true);
         }
+        StartCoroutine(AutosaveOff());
+    }
 
+    private IEnumerator AutosaveOff()
+    {
+        yield return new WaitForSeconds(4);
+        uiManager.saveUI.SetActive(false);
     }
 }
