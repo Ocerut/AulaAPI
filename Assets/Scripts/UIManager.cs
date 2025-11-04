@@ -27,9 +27,9 @@ public class UIManager : MonoBehaviour
     {
         playerHP = playerCtrlr.vida.ToString();
         playerItens = playerCtrlr.qtdeItens.ToString();
-        playerX = playerCtrlr.transform.position.x.ToString();
-        playerY = playerCtrlr.transform.position.y.ToString();
-        playerZ = playerCtrlr.transform.position.z.ToString();
+        playerX = Mathf.FloorToInt(playerCtrlr.transform.position.x).ToString();
+        playerY = Mathf.FloorToInt(playerCtrlr.transform.position.y).ToString();
+        playerZ = Mathf.FloorToInt(playerCtrlr.transform.position.z).ToString();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -42,8 +42,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void ButtonUpdate()
+    public void ButtonUpdate()
     {
-        saveInfoTxt.text = "Nome: " + playerName + " | HP: " + playerHP + " | Inventário: " + playerItens + " itens | Posição: x " + playerX + " y " + playerY + " z " + playerZ;
+        saveInfoTxt.text = "Nome: " + playerName + " | HP: " + playerHP + " | Inventário: " + playerItens + " itens | Posição: x " + playerX + " | y " + playerY + " | z " + playerZ;
     }
 }
