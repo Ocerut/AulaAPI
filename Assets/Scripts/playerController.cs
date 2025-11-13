@@ -33,9 +33,9 @@ public class playerController : MonoBehaviour
         direction = new Vector3(horizontalInput, 0, verticalInput);
         transform.Translate(direction * Time.deltaTime * speed);
 
-        jogador1.id = "1";
-        jogador1.Vida = vida;
-        jogador1.QtdeItens = qtdeItens;
+        jogador1.Id = "1";
+        jogador1.Vida = vida.ToString();
+        jogador1.QtdeItens = qtdeItens.ToString();
         jogador1.PosX = (int)transform.position.x;
         jogador1.PosY = (int)transform.position.y;
         jogador1.PosZ = (int)transform.position.z;

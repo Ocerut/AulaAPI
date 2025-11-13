@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameApiService
 {
     private readonly HttpClient httpClient;
-    private const string BASE_URL = "https://68f978a7ef8b2e621e7c295e.mockapi.io";
+    private const string BASE_URL = "http://localhost:5283/api";
 
     public GameApiService()
     {
@@ -24,7 +24,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Player";
+            string url = $"{BASE_URL}/players";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -53,7 +53,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Player/{id}";
+            string url = $"{BASE_URL}/players/{id}";
             Debug.Log($"GET: {url}");
             
             HttpResponseMessage response = await httpClient.GetAsync(url);
@@ -79,7 +79,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Player/{id}";
+            string url = $"{BASE_URL}/players/{id}";
             Debug.Log($"PUT: {url}");
             
             string json = JsonUtility.ToJson(jogador);
@@ -109,7 +109,7 @@ public class GameApiService
     {
         try
         {
-            string url = $"{BASE_URL}/Player";
+            string url = $"{BASE_URL}/players";
             Debug.Log($"POST: {url}");
             
             string json = JsonUtility.ToJson(jogador);
@@ -139,142 +139,142 @@ public class GameApiService
     /// <summary>
     /// Busca todos os itens de um jogador
     /// </summary>
-    public async Task<ItemJogador[]> GetItensJogador(string jogadorId)
-    {
-        try
-        {
-            string url = $"{BASE_URL}/Player/{jogadorId}/Itens";
-            Debug.Log($"GET: {url}");
+    //public async Task<ItemJogador[]> GetItensJogador(string jogadorId)
+    //{
+    //    try
+    //    {
+    //        string url = $"{BASE_URL}/players/{jogadorId}/";
+    //        Debug.Log($"GET: {url}");
             
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+    //        HttpResponseMessage response = await httpClient.GetAsync(url);
+    //        response.EnsureSuccessStatusCode();
             
-            string json = await response.Content.ReadAsStringAsync();
-            Debug.Log($"Itens recebidos: {json.Substring(0, Math.Min(200, json.Length))}...");
+    //        string json = await response.Content.ReadAsStringAsync();
+    //        Debug.Log($"Itens recebidos: {json.Substring(0, Math.Min(200, json.Length))}...");
             
-            // Wrapper para array de itens
-            string wrappedJson = $"{{\"itens\":{json}}}";
-            ItemArray itemArray = JsonUtility.FromJson<ItemArray>(wrappedJson);
+    //        // Wrapper para array de itens
+    //        string wrappedJson = $"{{\"itens\":{json}}}";
+    //        ItemArray itemArray = JsonUtility.FromJson<ItemArray>(wrappedJson);
             
-            return itemArray.itens;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Erro ao buscar itens do jogador {jogadorId}: {ex.Message}");
-            return new ItemJogador[0];
-        }
-    }
+    //        return itemArray.itens;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogError($"Erro ao buscar itens do jogador {jogadorId}: {ex.Message}");
+    //        return new ItemJogador[0];
+    //    }
+    //}
     
     /// <summary>
     /// Adiciona novo item ao jogador
     /// </summary>
-    public async Task<ItemJogador> AdicionarItem(string jogadorId, ItemJogador item)
-    {
-        try
-        {
-            string url = $"{BASE_URL}/Player/{jogadorId}/Itens";
-            Debug.Log($"POST: {url}");
+    //public async Task<ItemJogador> AdicionarItem(string jogadorId, ItemJogador item)
+    //{
+    //    try
+    //    {
+    //        string url = $"{BASE_URL}/Player/{jogadorId}/Itens";
+    //        Debug.Log($"POST: {url}");
             
-            // Garante que o JogadorId está correto
-            item.JogadorId = jogadorId;
+    //        // Garante que o JogadorId está correto
+    //        item.JogadorId = jogadorId;
             
-            string json = JsonUtility.ToJson(item);
-            Debug.Log($"JSON sendo enviado: {json}");
+    //        string json = JsonUtility.ToJson(item);
+    //        Debug.Log($"JSON sendo enviado: {json}");
             
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+    //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             
-            HttpResponseMessage response = await httpClient.PostAsync(url, content);
-            response.EnsureSuccessStatusCode();
+    //        HttpResponseMessage response = await httpClient.PostAsync(url, content);
+    //        response.EnsureSuccessStatusCode();
             
-            string responseJson = await response.Content.ReadAsStringAsync();
-            Debug.Log($"Item adicionado: {responseJson}");
+    //        string responseJson = await response.Content.ReadAsStringAsync();
+    //        Debug.Log($"Item adicionado: {responseJson}");
             
-            return JsonUtility.FromJson<ItemJogador>(responseJson);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Erro ao adicionar item: {ex.Message}");
-            return null;
-        }
-    }
+    //        return JsonUtility.FromJson<ItemJogador>(responseJson);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogError($"Erro ao adicionar item: {ex.Message}");
+    //        return null;
+    //    }
+    //}
     
-    /// <summary>
-    /// Busca um item específico do jogador
-    /// </summary>
-    public async Task<ItemJogador> GetItem(string jogadorId, string itemId)
-    {
-        try
-        {
-            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
-            Debug.Log($"GET: {url}");
+    ///// <summary>
+    ///// Busca um item específico do jogador
+    ///// </summary>
+    //public async Task<ItemJogador> GetItem(string jogadorId, string itemId)
+    //{
+    //    try
+    //    {
+    //        string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
+    //        Debug.Log($"GET: {url}");
             
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+    //        HttpResponseMessage response = await httpClient.GetAsync(url);
+    //        response.EnsureSuccessStatusCode();
             
-            string json = await response.Content.ReadAsStringAsync();
-            Debug.Log($"Item recebido: {json}");
+    //        string json = await response.Content.ReadAsStringAsync();
+    //        Debug.Log($"Item recebido: {json}");
             
-            return JsonUtility.FromJson<ItemJogador>(json);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Erro ao buscar item {itemId}: {ex.Message}");
-            return null;
-        }
-    }
+    //        return JsonUtility.FromJson<ItemJogador>(json);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogError($"Erro ao buscar item {itemId}: {ex.Message}");
+    //        return null;
+    //    }
+    //}
     
-    /// <summary>
-    /// Atualiza um item específico
-    /// </summary>
-    public async Task<ItemJogador> AtualizarItem(string jogadorId, string itemId, ItemJogador item)
-    {
-        try
-        {
-            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
-            Debug.Log($"PUT: {url}");
+    ///// <summary>
+    ///// Atualiza um item específico
+    ///// </summary>
+    //public async Task<ItemJogador> AtualizarItem(string jogadorId, string itemId, ItemJogador item)
+    //{
+    //    try
+    //    {
+    //        string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
+    //        Debug.Log($"PUT: {url}");
             
-            string json = JsonUtility.ToJson(item);
-            Debug.Log($"JSON sendo enviado: {json}");
+    //        string json = JsonUtility.ToJson(item);
+    //        Debug.Log($"JSON sendo enviado: {json}");
             
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+    //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             
-            HttpResponseMessage response = await httpClient.PutAsync(url, content);
-            response.EnsureSuccessStatusCode();
+    //        HttpResponseMessage response = await httpClient.PutAsync(url, content);
+    //        response.EnsureSuccessStatusCode();
             
-            string responseJson = await response.Content.ReadAsStringAsync();
-            Debug.Log($"Item atualizado: {responseJson}");
+    //        string responseJson = await response.Content.ReadAsStringAsync();
+    //        Debug.Log($"Item atualizado: {responseJson}");
             
-            return JsonUtility.FromJson<ItemJogador>(responseJson);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Erro ao atualizar item {itemId}: {ex.Message}");
-            return null;
-        }
-    }
+    //        return JsonUtility.FromJson<ItemJogador>(responseJson);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogError($"Erro ao atualizar item {itemId}: {ex.Message}");
+    //        return null;
+    //    }
+    //}
     
-    /// <summary>
-    /// Remove um item
-    /// </summary>
-    public async Task<bool> RemoverItem(string jogadorId, string itemId)
-    {
-        try
-        {
-            string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
-            Debug.Log($"DELETE: {url}");
+    ///// <summary>
+    ///// Remove um item
+    ///// </summary>
+    //public async Task<bool> RemoverItem(string jogadorId, string itemId)
+    //{
+    //    try
+    //    {
+    //        string url = $"{BASE_URL}/Player/{jogadorId}/Itens/{itemId}";
+    //        Debug.Log($"DELETE: {url}");
             
-            HttpResponseMessage response = await httpClient.DeleteAsync(url);
-            response.EnsureSuccessStatusCode();
+    //        HttpResponseMessage response = await httpClient.DeleteAsync(url);
+    //        response.EnsureSuccessStatusCode();
             
-            Debug.Log("Item removido com sucesso");
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Erro ao remover item {itemId}: {ex.Message}");
-            return false;
-        }
-    }
+    //        Debug.Log("Item removido com sucesso");
+    //        return true;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogError($"Erro ao remover item {itemId}: {ex.Message}");
+    //        return false;
+    //    }
+    //}
     
     #endregion
     

@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         playerCtrlr = playerObj.GetComponent<playerController>();
-        playerName = playerCtrlr.jogador1.id;
+        playerName = playerCtrlr.jogador1.Id;
     }
 
     // Update is called once per frame
